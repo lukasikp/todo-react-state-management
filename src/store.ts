@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import React from "react";
 
 export interface Todo {
   id: number;
@@ -40,3 +41,9 @@ export const addTodoAtom = atom(
     set(newTodoAtom, "");
   }
 );
+
+//native react implementation
+export const useTodos = (initial: Todo[]) => React.useState<Todo[]>(initial);
+export type useTodosType = ReturnType<typeof useTodos>;
+export type TodosType = useTodosType[0];
+export type SetTodosType = useTodosType[1];

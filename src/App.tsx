@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
-import { Provider as JotaiProvider } from "jotai";
 import Grid from "@material-ui/core/Grid";
 import Search from "./components/Search/Search";
 import TodoList from "./components/TodoList/TodoList";
+import { useTodos } from "./store";
+
 function App() {
+  const [todos, setTodos] = useTodos([]);
   return (
-    <JotaiProvider>
-      <div className="App">
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Search />
-            <TodoList />
-          </Grid>
+    <div className="App">
+      <Grid container spacing={3} direction="row" alignItems="baseline">
+        <Grid item xs={12}>
+          <Search setTodos={setTodos} todos={todos} />
         </Grid>
-      </div>
-    </JotaiProvider>
+        <Grid item xs={12}>
+          <TodoList setTodos={setTodos} todos={todos} />
+        </Grid>
+      </Grid>
+    </div>
   );
 }
 

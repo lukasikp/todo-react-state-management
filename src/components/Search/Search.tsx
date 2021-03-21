@@ -1,10 +1,16 @@
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import { useAtom } from "jotai";
-import { newTodoAtom, addTodoAtom } from "../../store";
+import Button from "@material-ui/core/Button";
+import { SetTodosType, addTodo, TodosType } from "../../store";
 
-const Search = () => {
-  const [newTodo, setNewTodo] = useAtom(newTodoAtom);
-  const [, addTodo] = useAtom(addTodoAtom);
+const Search = ({
+  todos,
+  setTodos,
+}: {
+  todos: TodosType;
+  setTodos: SetTodosType;
+}) => {
+  const [newTodo, setNewTodo] = useState("");
   return (
     <>
       <TextField
@@ -12,7 +18,10 @@ const Search = () => {
         value={newTodo}
         onChange={(evt) => setNewTodo(evt.target.value)}
       />
-      <button onClick={() => addTodo()}>Add todo</button>
+
+      <Button onClick={() => setTodos(addTodo(todos, newTodo))}>
+        Add todo
+      </Button>
     </>
   );
 };
